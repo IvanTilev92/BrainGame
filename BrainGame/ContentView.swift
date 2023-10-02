@@ -18,7 +18,7 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Color.init(red: 0.1, green: 0.3, blue: 0.2)
+            Color.init(red: 0.1, green: 0.2, blue: 0.2)
             VStack(spacing: 20) {
                 Text("Player score is: \(score)")
                     .font(.title)
@@ -31,14 +31,31 @@ struct ContentView: View {
                     .foregroundColor(.white)
                 if shouldWin {
                     Text("You have to WIN")
-                        .foregroundColor(.white)
+                        .foregroundColor(.green)
                         .font(.title2)
                         .bold()
                 } else {
                     Text("You have to LOSE")
-                        .foregroundColor(.white)
+                        .foregroundColor(.red)
                         .font(.title2)
                         .bold()
+                }
+                HStack {
+                    Button("👊") {
+                        // Code here
+                    }
+                    .font(.system(size: 100))
+                    .background(.quaternary)
+                    Button("🤚") {
+                        // Code here
+                    }
+                    .font(.system(size: 100))
+                    .background(.quaternary)
+                    Button("✌️") {
+                        // Code here
+                    }
+                    .font(.system(size: 100))
+                    .background(.quaternary)
                 }
             }
             .padding(20)
