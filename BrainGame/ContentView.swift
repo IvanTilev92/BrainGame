@@ -9,11 +9,12 @@ import SwiftUI
 
 struct ContentView: View {
     
-    var possibleMoves = ["Rock", "Paper", "Scissors"]
+    let possibleMoves = ["Rock", "Paper", "Scissors"]
+    let winningMoves = ["Paper", "Scissors", "Rock"]
     
     @State private var score = 0
     
-    @State private var currentState = ""
+    @State private var currentState = Int.random(in: 0...2)
     @State private var shouldWin = Bool.random()
     
     var body: some View {
@@ -25,7 +26,7 @@ struct ContentView: View {
                     .bold()
                     .padding()
                     .foregroundColor(.white)
-                Text("Computer move is: \(possibleMoves[Int.random(in: 0..<possibleMoves.count)])")
+                Text("Computer move is: \(possibleMoves[currentState])")
                     .font(.title2)
                     .bold()
                     .foregroundColor(.white)
@@ -41,18 +42,18 @@ struct ContentView: View {
                         .bold()
                 }
                 HStack {
-                    Button("👊") {
-                        // Code here
-                    }
-                    .font(.system(size: 100))
-                    .background(.quaternary)
-                    Button("🤚") {
-                        // Code here
+                    Button("🖐") {
+                        buttonPressed(playerMove: 0)
                     }
                     .font(.system(size: 100))
                     .background(.quaternary)
                     Button("✌️") {
-                        // Code here
+                        buttonPressed(playerMove: 1)
+                    }
+                    .font(.system(size: 100))
+                    .background(.quaternary)
+                    Button("👊") {
+                        buttonPressed(playerMove: 2)
                     }
                     .font(.system(size: 100))
                     .background(.quaternary)
@@ -62,6 +63,31 @@ struct ContentView: View {
             .background(.ultraThinMaterial)
         }
         .ignoresSafeArea()
+    }
+    
+    // Main logic
+    func buttonPressed(playerMove: Int) {
+        if shouldWin {
+            // WIN
+            if currentState == playerMove {
+                print("the player tapped \(winningMoves[playerMove]), the player was trying to WIN, and the app chose \(possibleMoves[currentState]), so add 1 point")
+                score += 1
+            } else {
+                print("the player tapped \(winningMoves[playerMove]), the player was trying to WIN, BUT the app chose \(possibleMoves[currentState]), so remove 1 point")
+                score -= 1
+            }
+        } else {
+            // LOSE
+            if possibleMoves[currentState] == winningMoves[playerMove] {
+                print("the player tapped \(winningMoves[playerMove]), the player was trying to LOSE, BUT the app chose \(possibleMoves[currentState]), so remove 1 point")
+                score -= 1
+            } else {
+                print("the player tapped \(winningMoves[playerMove]), the player was trying to LOSE, and the app chose \(possibleMoves[currentState]), so add 1 point")
+                score += 1
+            }
+        }
+        shouldWin.toggle()
+        currentState = Int.random(in: 0...2)
     }
 }
 
