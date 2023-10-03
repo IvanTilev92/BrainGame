@@ -44,16 +44,19 @@ struct ContentView: View {
                 HStack {
                     Button("🖐") {
                         buttonPressed(playerMove: 0)
+                        checkScore(currentScore: score)
                     }
                     .font(.system(size: 100))
                     .background(.quaternary)
                     Button("✌️") {
                         buttonPressed(playerMove: 1)
+                        checkScore(currentScore: score)
                     }
                     .font(.system(size: 100))
                     .background(.quaternary)
                     Button("👊") {
                         buttonPressed(playerMove: 2)
+                        checkScore(currentScore: score)
                     }
                     .font(.system(size: 100))
                     .background(.quaternary)
@@ -88,6 +91,12 @@ struct ContentView: View {
         }
         shouldWin.toggle()
         currentState = Int.random(in: 0...2)
+    }
+    
+    func checkScore(currentScore: Int) {
+        if currentScore == 10 {
+            score = 0
+        }
     }
 }
 
